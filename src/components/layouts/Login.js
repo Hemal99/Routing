@@ -6,6 +6,7 @@ import {
   CardActions,
   Button,
   CardHeader,
+  Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { login } from "../../store/actions/authActions";
@@ -29,9 +30,24 @@ const useStyles = makeStyles((theme) => ({
   },
   center: {
     textAlign: "center",
+    color: "#35BFFF",
+    fontSize: "2em",
+    fontWeight: 100,
+    lineHeight: "1em",
+    marginTop: 0,
+    fontFamily: '"Lato",sans-serif',
   },
   padding: {
     padding: theme.spacing(3),
+  },
+
+  button: {
+    backgroundColor: "#2cca5c",
+    color: "white",
+    "&hover": {
+      backgroundColor: "#2cca5c",
+      color: "white",
+    },
   },
 }));
 
@@ -41,7 +57,7 @@ let initialValues = {
 };
 
 let SignUpSchema = Yup.object().shape({
-  email: Yup.string().required("Email is required!"),
+  email: Yup.string().email().required("Email is required!"),
   password: Yup.string().required("Password is required!"),
 });
 function Login(props) {
@@ -56,18 +72,15 @@ function Login(props) {
 
   const submit = async (e) => {
     try {
-      const data = await axios.post("/auth/login/", {
+      const data = await axios.post("/auth/customer-login/", {
         email: e.email,
         password: e.password,
       });
 
-      const { fullName, role, accessToken, permittedRoutes, id, ownerName } =
-        data.data;
-      props.login(fullName, role, accessToken, permittedRoutes, id, ownerName);
+      const { accessToken, id } = data.data;
+      props.login(accessToken, id);
 
-      navigate("/dashboard");
-
-     
+      navigate("/myacount");
     } catch (error) {
       if (error.response.status === 401) {
         setAlert({
@@ -109,11 +122,17 @@ function Login(props) {
         <div className={styles.Right}>
           <div className={styles.Login}>
             <Grid item md={12}>
-              <Card className={classes.padding} variant="outlined">
-                <CardHeader
-                  title="Welcome back!"
+              <Card
+                className={classes.padding}
+                variant="outlined"
+                style={{ width: "100%" }}
+              >
+                <Typography
                   className={classes.center}
-                ></CardHeader>
+                  // style={{ fontSize: "2em" }}
+                >
+                  Login to Your Account
+                </Typography>
 
                 <Formik
                   initialValues={initialValues}
@@ -144,15 +163,18 @@ function Login(props) {
                           ></Field>
                         </CardContent>
                         <CardActions>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            fullWidth
-                            disabled={!dirty || !isValid}
-                            type="submit"
-                          >
-                            login
-                          </Button>
+                          <Grid container justifyContent="center">
+                            <Grid item>
+                              <Button
+                                variant="contained"
+                                className={classes.button}
+                                disabled={!dirty || !isValid}
+                                type="submit"
+                              >
+                                login
+                              </Button>
+                            </Grid>
+                          </Grid>
                         </CardActions>
                       </Form>
                     );
