@@ -5,7 +5,6 @@ import {
   CardContent,
   CardActions,
   Button,
-  CardHeader,
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,29 +24,43 @@ import { TextField } from "formik-material-ui";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: theme.spacing(1),
-    height: "100%",
+    marginTop: theme.spacing(5),
+    // height: "100%",
   },
   center: {
     textAlign: "center",
     color: "#35BFFF",
     fontSize: "2em",
-    fontWeight: 100,
+    fontWeight: 50,
     lineHeight: "1em",
     marginTop: 0,
     fontFamily: '"Lato",sans-serif',
   },
   padding: {
     padding: theme.spacing(3),
+    width: "45vw",
+    height: "auto",
+    [theme.breakpoints.down("sm")]: {
+      width: "70vw",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "90vw",
+    },
   },
 
   button: {
     backgroundColor: "#2cca5c",
     color: "white",
-    "&hover": {
+
+    "&:hover": {
       backgroundColor: "#2cca5c",
       color: "white",
     },
+  },
+
+  button2: {
+    marginTop: "1rem",
+    color: "#2cca5c",
   },
 }));
 
@@ -106,33 +119,16 @@ function Login(props) {
   };
 
   return (
-    <Grid
-      container
-      justifyContent="center"
-      alignItems="center"
-      className={classes.root}
-      spacing={1}
-    >
+    <Grid justifyContent="center" alignItems="center" spacing={1} p={1} mt={10}>
       <div className={styles.Wrapper}>
-        {/* <div className={styles.Left}>
-          <div id={styles.Img_Pane}>
-            <img className={classes.img} src={photo} alt='Login' />
-          </div>
-        </div> */}
         <div className={styles.Right}>
           <div className={styles.Login}>
             <Grid item md={12}>
-              <Card
-                className={classes.padding}
-                variant="outlined"
-                style={{ width: "100%" }}
-              >
-                <Typography
-                  className={classes.center}
-                  // style={{ fontSize: "2em" }}
-                >
+              <Card className={classes.padding} variant="outlined">
+                {/* <Typography className={classes.center}>
                   Login to Your Account
-                </Typography>
+                </Typography> */}
+                <h1 className={classes.center}>Login to Your Account</h1>
 
                 <Formik
                   initialValues={initialValues}
@@ -170,12 +166,51 @@ function Login(props) {
                                 className={classes.button}
                                 disabled={!dirty || !isValid}
                                 type="submit"
+                                size="large"
                               >
                                 login
                               </Button>
                             </Grid>
                           </Grid>
                         </CardActions>
+                        <Grid container>
+                          <Grid
+                            container
+                            item
+                            xs={12}
+                            md={6}
+                            className={classes.button2}
+                            justifyContent="center"
+                          >
+                            <Button
+                              style={{
+                                color: "#35bfff",
+                                textTransform: "none",
+                              }}
+                              onClick={() => navigate("/passwordhelp")}
+                            >
+                              I forgot my password
+                            </Button>
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            xs={12}
+                            md={6}
+                            className={classes.button2}
+                            justifyContent="center"
+                          >
+                            <Button
+                              style={{
+                                color: "#35bfff",
+                                textTransform: "none",
+                              }}
+                              onClick={() => navigate("/signup")}
+                            >
+                              I need an account
+                            </Button>
+                          </Grid>
+                        </Grid>
                       </Form>
                     );
                   }}

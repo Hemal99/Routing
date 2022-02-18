@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Routes, Route ,BrowserRouter} from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import {
   ThemeProvider,
   unstable_createMuiStrictModeTheme as createMuiTheme,
@@ -23,15 +23,13 @@ import { routes } from "./routes";
 import purple from "@material-ui/core/colors/purple";
 
 import Login from "components/layouts/Login";
-import NotFound from "../src/components/layouts/PageNotFound";
-import PermissionDenied from "../src/components/layouts/PermissionDenied";
-import Auth from "./components/common/Auth";
+import NotFound from "components/layouts/PageNotFound";
+import PermissionDenied from "components/layouts/PermissionDenied";
+import SignUp from "components/layouts/SignUp";
+import ForgotPassword from "components/layouts/ForgotPassword";
+import Auth from "components/common/Auth";
 
-const darkTheme = createMuiTheme({
-  palette: {
-    type: "dark",
-  },
-});
+
 
 const lightTheme = createMuiTheme({
   palette: {
@@ -85,22 +83,24 @@ function App(props) {
           >
             <Auth>
               <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Login />} />
-                <Route
-                  path="/permission-denied"
-                  element={<PermissionDenied />}
-                />
-                ​
-                {routes.map(({ element, path, name }) => (
+                <Routes>
+                  <Route path="/" element={<Login />} />
                   <Route
-                    key={name}
-                    path={path}
-                    element={<ProtectedRoute element={element} />}
+                    path="/permission-denied"
+                    element={<PermissionDenied />}
                   />
-                ))}
-                ​<Route component={NotFound}></Route>
-              </Routes>
+                  ​
+                  {routes.map(({ element, path, name }) => (
+                    <Route
+                      key={name}
+                      path={path}
+                      element={<ProtectedRoute element={element} />}
+                    />
+                  ))}
+                  ​<Route component={NotFound}></Route>
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route path="/passwordhelp" element={<ForgotPassword />} />
+                </Routes>
               </BrowserRouter>
             </Auth>
           </Suspense>
