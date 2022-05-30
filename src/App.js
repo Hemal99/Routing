@@ -28,6 +28,8 @@ import PermissionDenied from "components/layouts/PermissionDenied";
 import SignUp from "components/layouts/SignUp";
 import ForgotPassword from "components/layouts/ForgotPassword";
 import Auth from "components/common/Auth";
+import Main from "./screens/Routing/Main";
+import RouteNav from "components/layouts/RouteNav";
 
 
 
@@ -72,8 +74,7 @@ function App(props) {
     <ReduxProvider store={store}>
       <ThemeProvider theme={lightTheme}>
         <div className={classes.root}>
-          <NavBar {...props}> </NavBar>
-
+          
           <Suspense
             fallback={
               <div>
@@ -84,6 +85,7 @@ function App(props) {
             <Auth>
               <BrowserRouter>
                 <Routes>
+                  <Route path="/main" element={<Main />} />
                   <Route path="/" element={<Login />} />
                   <Route
                     path="/permission-denied"
