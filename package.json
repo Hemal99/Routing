@@ -28,7 +28,9 @@
     "redux-thunk": "^2.4.1",
     "sass": "^1.38.2",
     "web-vitals": "^2.1.4",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "@mui/x-date-pickers": "latest",
+    "date-fns": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
